@@ -6,6 +6,7 @@ const bodyparser = require("body-parser");
 const cloudinary = require("cloudinary");
 const erorrMiddleware = require("./middlewares/errors");
 const morgan = require("morgan");
+require("dotenv").config();
 
 app.use(morgan("dev"));
 app.use(fileUpload());
@@ -15,19 +16,21 @@ app.use(cookieParser());
 
 // Setting up cloudinary configuration
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: "flex-computers",
+  api_key: "917316584438263",
+  api_secret: "wgDI-6JRZwo0B4G66dpx-GxTEA8",
 });
 
 // ¸import all routes
 const products = require("./routes/product");
 const auth = require("./routes/auth");
 const order = require("./routes/order");
+const payment = require("./routes/payment");
 
 app.use("/api/v1", products);
 app.use("/api/v1", auth);
 app.use("/api/v1", order);
+app.use("/api/v1", payment);
 // ¸middleware to handle errors
 app.use(erorrMiddleware);
 

@@ -1,10 +1,12 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useAlert } from "react-alert";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { clearErrors, login } from "../../actions/userActions";
+
 import Loader from "../layout/Loader";
 import MetaData from "../layout/MetaData";
+
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import { login, clearErrors } from "../../actions/userActions";
 
 const Login = ({ history, location }) => {
   const [email, setEmail] = useState("");
@@ -16,7 +18,9 @@ const Login = ({ history, location }) => {
   const { isAuthenticated, error, loading } = useSelector(
     (state) => state.auth
   );
+
   const redirect = location.search ? location.search.split("=")[1] : "/";
+
   useEffect(() => {
     if (isAuthenticated) {
       history.push(redirect);
@@ -27,6 +31,7 @@ const Login = ({ history, location }) => {
       dispatch(clearErrors());
     }
   }, [dispatch, alert, isAuthenticated, error, history]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
