@@ -5,17 +5,17 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter product name"],
     trim: true,
-    maxlength: [100, "Product name cannot exceed 100 letters"],
+    maxLength: [100, "Product name cannot exceed 100 characters"],
   },
   price: {
     type: Number,
-    required: [true, "Please enter product   price"],
-    maxlength: [5, "product name cannot exceed 5 characthers"],
+    required: [true, "Please enter product price"],
+    maxLength: [5, "Product name cannot exceed 5 characters"],
     default: 0.0,
   },
   description: {
     type: String,
-    required: [true, "Please enter product description   "],
+    required: [true, "Please enter product description"],
   },
   ratings: {
     type: Number,
@@ -39,8 +39,8 @@ const productSchema = new mongoose.Schema({
     enum: {
       values: [
         "Electronics",
-        "Camera",
-        "Laptop",
+        "Cameras",
+        "Laptops",
         "Accessories",
         "Headphones",
         "Food",
@@ -60,15 +60,15 @@ const productSchema = new mongoose.Schema({
   },
   stock: {
     type: Number,
-    required: [true, "Please enter stock number"],
-    maxlength: [5, "Product name cannot exceed 5 character"],
+    required: [true, "Please enter product stock"],
+    maxLength: [5, "Product name cannot exceed 5 characters"],
     default: 0,
   },
   numOfReviews: {
     type: Number,
     default: 0,
   },
-  revews: [
+  reviews: [
     {
       user: {
         type: mongoose.Schema.ObjectId,
@@ -96,7 +96,7 @@ const productSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 

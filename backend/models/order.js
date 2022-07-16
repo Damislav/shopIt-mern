@@ -25,8 +25,8 @@ const orderSchema = mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
     required: true,
+    ref: "User",
   },
   orderItems: [
     {
@@ -48,8 +48,8 @@ const orderSchema = mongoose.Schema({
       },
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
         required: true,
+        ref: "Product",
       },
     },
   ],
@@ -64,6 +64,7 @@ const orderSchema = mongoose.Schema({
   paidAt: {
     type: Date,
   },
+
   itemsPrice: {
     type: Number,
     required: true,
@@ -94,7 +95,7 @@ const orderSchema = mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 

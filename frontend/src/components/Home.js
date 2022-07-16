@@ -1,12 +1,19 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { useAlert } from "react-alert";
-import { useDispatch, useSelector } from "react-redux";
+
 import MetaData from "./layout/MetaData";
+import Product from "./product/Product";
+import Loader from "./layout/Loader";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from "react-alert";
+import { getProducts } from "../actions/productActions";
+
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
+
 const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([1, 1000]);
@@ -47,7 +54,7 @@ const Home = ({ match }) => {
       return alert.error(error);
     }
 
-    // dispatch(getProducts(keyword, currentPage, price, category, rating));
+    dispatch(getProducts(keyword, currentPage, price, category, rating));
   }, [dispatch, alert, error, keyword, currentPage, price, category, rating]);
 
   function setCurrentPageNo(pageNumber) {
@@ -75,7 +82,7 @@ const Home = ({ match }) => {
                 <Fragment>
                   <div className="col-6 col-md-3 mt-5 mb-5">
                     <div className="px-5">
-                      {/* <Range
+                      <Range
                         marks={{
                           1: `$1`,
                           1000: `$1000`,
@@ -90,7 +97,7 @@ const Home = ({ match }) => {
                         }}
                         value={price}
                         onChange={(price) => setPrice(price)}
-                      /> */}
+                      />
 
                       <hr className="my-5" />
 
@@ -146,16 +153,14 @@ const Home = ({ match }) => {
                   <div className="col-6 col-md-9">
                     <div className="row">
                       {products.map((product) => (
-                        // <Product key={product._id} product={product} col={4} />
-                        <></>
+                        <Product key={product._id} product={product} col={4} />
                       ))}
                     </div>
                   </div>
                 </Fragment>
               ) : (
                 products.map((product) => (
-                  // <Product key={product._id} product={product} col={3} />
-                  <></>
+                  <Product key={product._id} product={product} col={3} />
                 ))
               )}
             </div>
@@ -163,7 +168,7 @@ const Home = ({ match }) => {
 
           {resPerPage <= count && (
             <div className="d-flex justify-content-center mt-5">
-              {/* <Pagination
+              <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={resPerPage}
                 totalItemsCount={productsCount}
@@ -174,7 +179,7 @@ const Home = ({ match }) => {
                 lastPageText={"Last"}
                 itemClass="page-item"
                 linkClass="page-link"
-              /> */}
+              />
             </div>
           )}
         </Fragment>
