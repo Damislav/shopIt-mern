@@ -47,6 +47,7 @@ const UpdateProfile = ({ history }) => {
         type: UPDATE_PROFILE_RESET,
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, alert, error, history, isUpdated]);
 
   const submitHandler = (e) => {

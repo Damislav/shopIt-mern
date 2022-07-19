@@ -1,37 +1,45 @@
 const express = require("express");
 const app = express();
-const fileUpload = require("express-fileupload");
-const cookieParser = require("cookie-parser");
-const bodyparser = require("body-parser");
-const cloudinary = require("cloudinary");
-const erorrMiddleware = require("./middlewares/errors");
 const morgan = require("morgan");
-require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 
-app.use(morgan("dev"));
-app.use(fileUpload());
+const path = require("path");
+
+const errorMiddleware = require("./middlewares/errors");
+
+// Setting up config file
+if (process.env.NODE_ENV === "PRODUCTION") {
+  require("dotenv").dotenv.config({ path: "backend/config/config.env" });
+}
+
 app.use(express.json());
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(fileUpload());
+app.use(morgan("dev"));
 
-// Setting up cloudinary configuration
-cloudinary.config({
-  cloud_name: "flex-computers",
-  api_key: "917316584438263",
-  api_secret: "wgDI-6JRZwo0B4G66dpx-GxTEA8",
-});
-
-// ¸import all routes
+// Import all routes
 const products = require("./routes/product");
 const auth = require("./routes/auth");
-const order = require("./routes/order");
 const payment = require("./routes/payment");
+const order = require("./routes/order");
 
 app.use("/api/v1", products);
 app.use("/api/v1", auth);
-app.use("/api/v1", order);
 app.use("/api/v1", payment);
-// ¸middleware to handle errors
-app.use(erorrMiddleware);
+app.use("/api/v1", order);
+
+if (process.env.NODE_ENV === "PRODUCTION") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+  });
+}
+
+// Middleware to handle errors
+app.use(errorMiddleware);
 
 module.exports = app;

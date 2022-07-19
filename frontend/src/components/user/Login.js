@@ -30,6 +30,7 @@ const Login = ({ history, location }) => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, alert, isAuthenticated, error, history]);
 
   const submitHandler = (e) => {

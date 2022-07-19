@@ -43,7 +43,7 @@ import { loadUser } from "./actions/userActions";
 import { useSelector } from "react-redux";
 import store from "./store";
 import axios from "axios";
-
+import "./App.css";
 // Payment
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";

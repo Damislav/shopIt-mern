@@ -7,8 +7,6 @@ import { logout } from "../../actions/userActions";
 
 import Search from "./Search";
 
-import "../../App.css";
-
 const Header = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
